@@ -1,4 +1,3 @@
--- SQL Server 2019+
 -- Etapa 1: Modelagem de Dados (DDL)
 
 IF OBJECT_ID('dbo.InvoiceItem', 'U') IS NOT NULL
@@ -19,7 +18,7 @@ GO
 
 CREATE TABLE dbo.Customer
 (
-    CustomerId UNIQUEIDENTIFIER NOT NULL --Guid
+    CustomerId UNIQUEIDENTIFIER NOT NULL
         CONSTRAINT DF_Customer_CustomerId DEFAULT NEWSEQUENTIALID(),
     Name NVARCHAR(200) NOT NULL,
     Email NVARCHAR(320) NOT NULL,
@@ -67,11 +66,11 @@ CREATE TABLE dbo.SubscriptionItem
 );
 GO
 
-CREATE TABLE dbo.Invoice --Fatura
+CREATE TABLE dbo.Invoice
 (
     InvoiceId INT IDENTITY(1,1) NOT NULL,
     SubscriptionId INT NOT NULL,
-    ReferenceMonth CHAR(6) NOT NULL, -- YYYYMM
+    ReferenceMonth CHAR(6) NOT NULL,
     TotalAmount DECIMAL(18,2) NOT NULL
         CONSTRAINT DF_Invoice_TotalAmount DEFAULT (0),
     CreatedAt DATETIME2(0) NOT NULL
@@ -83,7 +82,7 @@ CREATE TABLE dbo.Invoice --Fatura
     CONSTRAINT UQ_Invoice_Subscription_ReferenceMonth UNIQUE (SubscriptionId, ReferenceMonth),
     CONSTRAINT CK_Invoice_ReferenceMonth CHECK
     (
-        ReferenceMonth LIKE '[1-2][0-9][0-9][0-9][0-1][0-9]' --revisar
+        ReferenceMonth LIKE '[1-2][0-9][0-9][0-9][0-1][0-9]'
         AND RIGHT(ReferenceMonth, 2) BETWEEN '01' AND '12'
     ),
     CONSTRAINT CK_Invoice_TotalAmount CHECK (TotalAmount >= 0)
@@ -104,7 +103,7 @@ CREATE TABLE dbo.InvoiceItem
 );
 GO
 
---consultas por CustomerId são frequentes (relacionamento Customer -> Subscription)
+-- Consultas por CustomerId são frequentes (Customer -> Subscription)
 -- e este índice reduz leituras na busca de assinaturas por cliente.
 CREATE NONCLUSTERED INDEX IX_Subscription_CustomerId
     ON dbo.Subscription (CustomerId);

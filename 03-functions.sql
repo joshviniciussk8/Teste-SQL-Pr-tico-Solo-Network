@@ -1,6 +1,21 @@
--- Etapa 8: Função com Valor de Tabela (Table-Valued Function)
--- Objetivo: visão analítica reutilizável das assinaturas e seus valores mensais
--- Tipo: Inline Table-Valued Function (iTVF)
+-- Funções (Scalar + Table-Valued)
+
+CREATE OR ALTER FUNCTION dbo.fn_CalculateSubscriptionTotal
+(
+    @SubscriptionId INT
+)
+RETURNS DECIMAL(18,2)
+AS
+BEGIN
+    DECLARE @Total DECIMAL(18,2);
+
+    SELECT @Total = ISNULL(SUM(si.MonthlyPrice * si.Quantity), 0)
+    FROM dbo.SubscriptionItem si
+    WHERE si.SubscriptionId = @SubscriptionId;
+
+    RETURN @Total;
+END;
+GO
 
 CREATE OR ALTER FUNCTION dbo.fn_GetSubscriptionMonthlySummary
 (
@@ -32,6 +47,3 @@ RETURN
         s.Status
 );
 GO
-
--- Exemplo de uso:
--- SELECT * FROM dbo.fn_GetSubscriptionMonthlySummary(202501);

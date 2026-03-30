@@ -1,4 +1,4 @@
--- Etapa 5: View Analítica
+-- Views
 
 CREATE OR ALTER VIEW dbo.vw_AnaliticoFaturamento
 AS
@@ -21,6 +21,3 @@ GROUP BY
     i.ReferenceMonth,
     i.TotalAmount;
 GO
-
--- Exemplo:
--- SELECT * FROM dbo.vw_AnaliticoFaturamento;

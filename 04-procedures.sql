@@ -1,4 +1,4 @@
--- Etapa 4: Procedure de geração de fatura
+-- Procedures
 
 CREATE OR ALTER PROCEDURE dbo.sp_GenerateInvoice
 (
@@ -92,6 +92,3 @@ BEGIN
     END CATCH
 END;
 GO
-
--- Exemplo:
--- EXEC dbo.sp_GenerateInvoice @SubscriptionId = 1, @ReferenceMonth = '202502';

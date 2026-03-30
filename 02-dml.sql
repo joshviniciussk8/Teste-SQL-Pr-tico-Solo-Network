@@ -1,5 +1,5 @@
--- Etapa 2: Carga inicial de dados (INSERT)
--- Execute este script após o 01_Modelagem_Dados_DDL.sql
+-- Etapa 2: Carga de dados (DML)
+-- Execute este script após o 01-ddl.sql
 
 SET NOCOUNT ON;
 
@@ -9,7 +9,6 @@ DELETE FROM dbo.SubscriptionItem;
 DELETE FROM dbo.Subscription;
 DELETE FROM dbo.Customer;
 
---resetando o identity para garantir que os IDs comecem do 1
 DBCC CHECKIDENT ('dbo.InvoiceItem', RESEED, 0);
 DBCC CHECKIDENT ('dbo.Invoice', RESEED, 0);
 DBCC CHECKIDENT ('dbo.SubscriptionItem', RESEED, 0);
@@ -70,16 +69,12 @@ FROM
     VALUES
         (N'ana.souza@exemplo.com', N'Plano Pro', 99.90, 1),
         (N'ana.souza@exemplo.com', N'Suporte Premium', 29.90, 1),
-
         (N'bruno.lima@exemplo.com', N'Plano Basic', 49.90, 2),
         (N'bruno.lima@exemplo.com', N'Addon Backup', 19.90, 1),
-
         (N'carla.mendes@exemplo.com', N'Plano Enterprise', 199.90, 1),
         (N'carla.mendes@exemplo.com', N'Usuário Extra', 15.00, 3),
-
         (N'diego.alves@exemplo.com', N'Plano Starter', 29.90, 1),
         (N'diego.alves@exemplo.com', N'Relatórios Avançados', 39.90, 1),
-
         (N'eduarda.rocha@exemplo.com', N'Plano Plus', 79.90, 1),
         (N'eduarda.rocha@exemplo.com', N'Integração API', 49.90, 1),
         (N'eduarda.rocha@exemplo.com', N'Suporte Prioritário', 24.90, 1)
@@ -117,16 +112,12 @@ FROM
     VALUES
         (N'ana.souza@exemplo.com', '202501', N'Plano Pro', 99.90),
         (N'ana.souza@exemplo.com', '202501', N'Suporte Premium', 29.90),
-
         (N'bruno.lima@exemplo.com', '202501', N'Plano Basic x2', 99.80),
         (N'bruno.lima@exemplo.com', '202501', N'Addon Backup', 19.90),
-
         (N'carla.mendes@exemplo.com', '202501', N'Plano Enterprise', 199.90),
         (N'carla.mendes@exemplo.com', '202501', N'Usuário Extra x3', 45.00),
-
         (N'diego.alves@exemplo.com', '202501', N'Plano Starter', 29.90),
         (N'diego.alves@exemplo.com', '202501', N'Relatórios Avançados', 39.90),
-
         (N'eduarda.rocha@exemplo.com', '202501', N'Plano Plus', 79.90),
         (N'eduarda.rocha@exemplo.com', '202501', N'Integração API', 49.90),
         (N'eduarda.rocha@exemplo.com', '202501', N'Suporte Prioritário', 24.90)

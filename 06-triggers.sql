@@ -1,4 +1,4 @@
--- Etapa 6: Auditoria de Invoice
+-- Triggers (com estrutura de auditoria)
 
 IF OBJECT_ID('dbo.InvoiceAudit', 'U') IS NULL
 BEGIN

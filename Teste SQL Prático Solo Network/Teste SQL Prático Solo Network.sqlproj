@@ -57,4 +57,13 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="01-ddl.sql" />
+    <Build Include="02-dml.sql" />
+    <Build Include="03-functions.sql" />
+    <Build Include="04-procedures.sql" />
+    <Build Include="05-views.sql" />
+    <Build Include="06-triggers.sql" />
+    <Build Include="07-queries.sql" />
+  </ItemGroup>
 </Project>

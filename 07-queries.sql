@@ -1,11 +1,41 @@
--- Etapa 9: Queries Avançadas de Consulta (Leitura)
--- Boas práticas de nomenclatura aplicadas: aliases claros, CTEs descritivas e colunas padronizadas.
+-- Queries analíticas e avançadas
 
-/*
-Query 1 – Faturamento acumulado (Running Total)
-Objetivo: listar o faturamento acumulado mês a mês por cliente.
-Requisitos: SUM() OVER (PARTITION BY ... ORDER BY ...), sem subquery correlacionada.
-*/
+/* Query Analítica – Ranking (Top 3 clientes que mais faturaram no último ano) */
+;WITH FaturamentoUltimoAno AS
+(
+    SELECT
+        c.CustomerId,
+        c.Name AS Cliente,
+        SUM(i.TotalAmount) AS TotalFaturado
+    FROM dbo.Invoice i
+    INNER JOIN dbo.Subscription s
+        ON s.SubscriptionId = i.SubscriptionId
+    INNER JOIN dbo.Customer c
+        ON c.CustomerId = s.CustomerId
+    WHERE i.CreatedAt >= DATEADD(YEAR, -1, SYSUTCDATETIME())
+    GROUP BY
+        c.CustomerId,
+        c.Name
+), Ranking AS
+(
+    SELECT
+        f.CustomerId,
+        f.Cliente,
+        f.TotalFaturado,
+        DENSE_RANK() OVER (ORDER BY f.TotalFaturado DESC) AS Posicao
+    FROM FaturamentoUltimoAno f
+)
+SELECT TOP (3)
+    r.Posicao,
+    r.CustomerId,
+    r.Cliente,
+    r.TotalFaturado
+FROM Ranking r
+ORDER BY
+    r.TotalFaturado DESC,
+    r.Cliente ASC;
+
+/* Query 1 – Faturamento acumulado (Running Total) */
 ;WITH MonthlyRevenueByCustomer AS
 (
     SELECT
@@ -39,12 +69,7 @@ ORDER BY
     m.CustomerName,
     m.ReferenceMonth;
 
-
-/*
-Query 2 – Detecção de Assinaturas Inativas
-Objetivo: listar assinaturas Active sem fatura nos últimos 3 meses.
-Requisitos: LEFT JOIN, HAVING, uso de datas/YYYYMM.
-*/
+/* Query 2 – Detecção de Assinaturas Inativas */
 SELECT
     s.SubscriptionId,
     c.CustomerId,
@@ -68,12 +93,7 @@ ORDER BY
     c.Name,
     s.SubscriptionId;
 
-
-/*
-Query 3 – Última Fatura por Assinatura (APPLY)
-Objetivo: listar clientes e retornar a última fatura de cada assinatura.
-Requisitos: OUTER APPLY/CROSS APPLY, TOP 1, ORDER BY.
-*/
+/* Query 3 – Última Fatura por Assinatura (APPLY) */
 SELECT
     c.CustomerId,
     c.Name AS CustomerName,
@@ -102,14 +122,7 @@ ORDER BY
     c.Name,
     s.SubscriptionId;
 
-
-/*
-Query 4 – Comparação (Anti-Join)
-Objetivo:
-1) Assinaturas sem itens
-2) Assinaturas com itens, mas sem faturas
-Requisitos: NOT EXISTS, evitar NOT IN.
-*/
+/* Query 4 – Comparação (Anti-Join) */
 SELECT
     'SemItens' AS Scenario,
     s.SubscriptionId,
