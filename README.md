@@ -65,11 +65,3 @@ EXEC dbo.sp_GenerateInvoice @SubscriptionId = 1, @ReferenceMonth = '202502';
 
 ---
 
-## Possíveis melhorias
-
-- Criar pipeline de migração de banco (ex.: `DbUp`/`Flyway`/`SSDTSqlProj`) para versionamento controlado.
-- Adicionar testes automatizados T-SQL para procedure/funções.
-- Expandir auditoria para updates/deletes de `Invoice`.
-- Avaliar índices compostos e colunas `INCLUDE` conforme plano de execução real.
-- Implementar estratégia de segurança (roles, grants mínimos e schema dedicado).
-- Adicionar rotina de reconciliação entre `Invoice.TotalAmount` e soma de `InvoiceItem`.
