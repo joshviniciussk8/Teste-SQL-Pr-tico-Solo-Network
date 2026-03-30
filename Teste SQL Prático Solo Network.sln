@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37111.16 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Teste SQL Prático Solo Network", "Teste SQL Prático Solo Network\Teste SQL Prático Solo Network.sqlproj", "{87F48D82-F3E5-433A-8019-B6DBC8C1CB3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87F48D82-F3E5-433A-8019-B6DBC8C1CB3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87F48D82-F3E5-433A-8019-B6DBC8C1CB3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87F48D82-F3E5-433A-8019-B6DBC8C1CB3B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{87F48D82-F3E5-433A-8019-B6DBC8C1CB3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87F48D82-F3E5-433A-8019-B6DBC8C1CB3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87F48D82-F3E5-433A-8019-B6DBC8C1CB3B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5886A5DF-39DB-44C4-ACEF-4AE27995AC25}
+	EndGlobalSection
+EndGlobal
